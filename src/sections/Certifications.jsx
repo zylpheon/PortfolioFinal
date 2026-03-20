@@ -1,6 +1,6 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Award, ExternalLink } from 'lucide-react'
+import { Award } from 'lucide-react'
 import { certifications } from '../data/index.js'
 
 const fadeUp = {
@@ -13,79 +13,35 @@ const fadeUp = {
 }
 
 function CertCard({ cert, index, inView }) {
+  const [imgError, setImgError] = useState(false)
+
   return (
     <motion.div
       variants={fadeUp}
       initial="hidden"
       animate={inView ? 'show' : 'hidden'}
       custom={index * 0.3}
-      className={`relative group p-5 border transition-all duration-300 
-  aspect-[1.414/1] flex flex-col overflow-hidden ${cert.placeholder
-          ? 'border-dashed border-border hover:border-ink-muted cursor-default'
-          : 'border-border hover:border-ink hover:shadow-sm cursor-pointer'
-        }`}
+      className="relative overflow-hidden border border-border aspect-[1.414/1]"
     >
-      {/* Number badge */}
-      <span className="absolute top-4 right-4 font-display text-[10px] font-600 tracking-wider text-ink-muted">
-        {String(cert.id).padStart(2, '0')}
-      </span>
-
-      {/* Icon */}
-      <div
-        className={`w-9 h-9 flex items-center justify-center border mb-4 mt-1 transition-colors duration-300 flex-shrink-0 ${cert.placeholder
-          ? 'border-border text-ink-muted'
-          : 'border-border text-ink group-hover:border-ink'
-          }`}
-      >
-        <Award size={16} strokeWidth={1.5} />
-      </div>
-
-      {/* Content — grows to fill remaining height */}
-      <div className="flex flex-col flex-1 min-h-0">
-        <h4
-          className={`font-display text-sm font-600 leading-tight mb-1 transition-colors duration-200 ${cert.placeholder ? 'text-ink-muted' : 'text-ink'
-            }`}
-        >
-          {cert.name}
-        </h4>
-
-        <p
-          className={`font-body text-xs leading-relaxed ${cert.placeholder ? 'text-ink-muted/60' : 'text-ink-secondary'
-            }`}
-        >
-          {cert.issuer}
-        </p>
-
-        {/* Year + link didorong ke bawah */}
-        <div className="mt-auto pt-3 flex items-center justify-between">
-          <span className="font-body text-[11px] font-500 text-ink-muted">{cert.year}</span>
-
-          {!cert.placeholder && (
-            <a
-              href={cert.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-[11px] font-body font-500 text-ink-secondary hover:text-ink transition-colors duration-200"
-            >
-              View
-              <ExternalLink size={10} />
-            </a>
-          )}
+      {!imgError ? (
+        /* ── Certificate image — pure display, no zoom, no overlay ── */
+        <img
+          src={`/certificates/cert-${cert.id}.webp`}
+          alt={cert.placeholder ? `Certificate ${cert.id}` : cert.name}
+          className="w-full h-full object-cover"
+          onError={() => setImgError(true)}
+          draggable={false}
+        />
+      ) : (
+        /* ── Fallback when image not yet available ── */
+        <div className="w-full h-full bg-surface flex flex-col items-center justify-center gap-2">
+          <Award size={20} strokeWidth={1.3} className="text-ink-muted/50" />
+          <span className="font-display text-[8px] font-600 tracking-widest uppercase text-ink-muted/40">
+            {String(cert.id).padStart(2, '0')}
+          </span>
         </div>
-      </div>
-
-      {/* Placeholder overlay */}
-      {
-        cert.placeholder && (
-          <div
-            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100
-                   transition-opacity duration-300 bg-surface/40"
-          >
-            <span className="section-label text-[9px]">Coming soon</span>
-          </div>
-        )
-      }
-    </motion.div >
+      )}
+    </motion.div>
   )
 }
 
@@ -141,12 +97,12 @@ export default function Certifications() {
             custom={2}
             className="font-body text-sm text-ink-muted max-w-xs leading-relaxed"
           >
-            Formal recognitions from recognized institutions. Slots marked as coming soon will be
-            updated as I earn them.
+            Formal recognitions from recognized institutions. More slots will be
+            filled as new certifications are earned.
           </motion.p>
         </div>
 
-        {/* Grid */}
+        {/* Grid — pure image tiles */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {certifications.map((cert, i) => (
             <CertCard key={cert.id} cert={cert} index={i} inView={inView} />
