@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ────────────────────────────────────────────── */
+:root {
+  --bg: #F2F0EB;
+  --surface: #E8E6E0;
+  --border: rgba(17, 17, 17, 0.12);
+  --ink: #111111;
+  --ink-secondary: #4A4845;
+  --ink-muted: #8A8783;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: 'Barlow', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Grain Overlay ───────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 250px 250px;
+}
+
+/* ─── Custom Scrollbar ────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(17, 17, 17, 0.25);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(17, 17, 17, 0.45);
+}
+
+/* ─── Selection ───────────────────────────────────────── */
+::selection {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ─── Utility Classes ─────────────────────────────────── */
+@layer components {
+  .section-label {
+    @apply font-display text-[10px] font-500 tracking-widest2 uppercase text-ink-muted;
+  }
+
+  .section-number {
+    @apply font-display text-[11px] font-600 tracking-wider text-ink-muted;
+  }
+
+  .divider {
+    @apply w-full h-px bg-border;
+  }
+
+  .tag {
+    @apply inline-flex items-center px-3 py-1 text-xs font-body font-500 border border-border text-ink-secondary rounded-full transition-all duration-200 hover:border-ink hover:text-ink;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 font-display text-sm font-600 tracking-wider uppercase bg-ink text-bg border border-ink transition-all duration-300 hover:bg-bg hover:text-ink;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 font-display text-sm font-600 tracking-wider uppercase bg-transparent text-ink border border-ink transition-all duration-300 hover:bg-ink hover:text-bg;
+  }
+}
+
+/* ─── Magnetic Button ─────────────────────────────────── */
+.magnetic-wrapper {
+  display: inline-flex;
+  position: relative;
+}
+
+/* ─── Section Transitions ─────────────────────────────── */
+.section-enter {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* ─── Horizontal Rule Accent ──────────────────────────── */
+.hr-accent {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--ink);
+  margin: 0;
+}
