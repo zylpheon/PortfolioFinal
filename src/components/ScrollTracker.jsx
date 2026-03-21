@@ -30,7 +30,7 @@ export default function ScrollTracker() {
         const handleScroll = () => {
             const scrolled = window.scrollY
             const total = document.documentElement.scrollHeight - window.innerHeight
-            const pct = total > 0 ? Math.round((scrolled / total) * 100) : 0
+            const pct = total > 0 ? Math.min(Math.round((scrolled / total) * 100), 100) : 0
             setScrollPct(pct)
             setVisible(scrolled > 80)
 

@@ -12,7 +12,7 @@ const fadeUp = {
   }),
 }
 
-function CertCard({ cert, index, inView }) {
+function CertCard({ cert, index, inView, isLast }) {
   const [imgError, setImgError] = useState(false)
 
   return (
@@ -21,10 +21,11 @@ function CertCard({ cert, index, inView }) {
       initial="hidden"
       animate={inView ? 'show' : 'hidden'}
       custom={index * 0.3}
-      className="relative overflow-hidden border border-border aspect-[1.414/1]"
+      className={`relative overflow-hidden border border-border aspect-[1.414/1]
+        ${isLast ? 'col-span-2 sm:col-span-1 justify-self-center sm:justify-self-auto w-[calc(50%-6px)] sm:w-auto' : ''}`}
     >
+      {/* ... isi CertCard tidak berubah ... */}
       {!imgError ? (
-        /* ── Certificate image — pure display, no zoom, no overlay ── */
         <img
           src={`/certificates/cert-${cert.id}.webp`}
           alt={cert.placeholder ? `Certificate ${cert.id}` : cert.name}
@@ -33,7 +34,6 @@ function CertCard({ cert, index, inView }) {
           draggable={false}
         />
       ) : (
-        /* ── Fallback when image not yet available ── */
         <div className="w-full h-full bg-surface flex flex-col items-center justify-center gap-2">
           <Award size={20} strokeWidth={1.3} className="text-ink-muted/50" />
           <span className="font-display text-[8px] font-600 tracking-widest uppercase text-ink-muted/40">
@@ -105,7 +105,13 @@ export default function Certifications() {
         {/* Grid — pure image tiles */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {certifications.map((cert, i) => (
-            <CertCard key={cert.id} cert={cert} index={i} inView={inView} />
+            <CertCard
+              key={cert.id}
+              cert={cert}
+              index={i}
+              inView={inView}
+              isLast={i === certifications.length - 1 && certifications.length % 2 !== 0}
+            />
           ))}
         </div>
       </div>

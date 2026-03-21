@@ -8,7 +8,7 @@ export const profile = {
   initials: 'VLR',
   tagline: 'I live a life I will remember.',
   role: 'Full-Stack Developer',
-  otherRoles: ['UI/UX Designer', 'IoT Developer', 'Network Administrator'],
+  otherRoles: ['IoT Developer', 'DevOps Engineer', 'Network Engineer'],
   location: 'Sleman, Yogyakarta',
   email: 'lrv94451@gmail.com',
 

@@ -16,8 +16,6 @@ import { useElasticScroll } from './hooks/useElasticScroll.js'
 
 export default function App() {
   const pageRef = useRef(null)
-
-  // Elastic pull-to-bounce — smoother params
   useElasticScroll(pageRef, { maxPull: 60, strength: 0.10, damping: 0.88, releaseMs: 40 })
 
   useEffect(() => {
@@ -27,33 +25,34 @@ export default function App() {
 
   return (
     <AnimatePresence>
-      {/*
-        ── Navbar & ScrollTracker are rendered OUTSIDE the transformed wrapper.
-           This is the fix: position:fixed breaks when an ancestor has
-           transform/will-change applied. Keeping them outside avoids that.
-      ── */}
       <ScrollTracker />
       <Navbar />
 
-      {/* Page load overlay wipe */}
+      {/* ── End-of-page reveal text ── */}
+      <div className="fixed bottom-0 left-0 right-0 z-[1] flex items-center justify-center pb-10 pointer-events-none select-none">
+        <p
+          className="font-display text-[10px] font-600 tracking-widest uppercase"
+          style={{ color: '#8A8783' }}
+        >
+          /// You have reached the end of this page ///
+        </p>
+      </div>
+
       <motion.div
-        initial={{ scaleY: 1 }}
+        initial={{ opacity: 0 }}
         animate={{ scaleY: 0 }}
         transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
         style={{ originY: 0 }}
         className="fixed inset-0 z-[9998] bg-ink pointer-events-none"
       />
 
-      {/*
-        ── Only the page body gets elastically pulled.
-           No willChange here — the hook sets transform via style directly.
-      ── */}
+      {/* Tambahkan z-10 agar page wrapper menutupi teks di belakangnya */}
       <motion.div
         ref={pageRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative min-h-screen bg-bg"
+        className="relative z-10 min-h-screen bg-bg"
       >
         <main>
           <Hero />
@@ -64,7 +63,6 @@ export default function App() {
           <Blog />
           <Contact />
         </main>
-
         <Footer />
       </motion.div>
     </AnimatePresence>
