@@ -1,14 +1,14 @@
-import { useRef } from 'react'
+import { memo, useRef, useMemo } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDownRight, MapPin } from 'lucide-react'
 import { profile } from '../data/index.js'
 import { useMagneticEffect } from '../hooks/useMagneticEffect.js'
 
-// Split string into span elements for staggered animation
-function SplitText({ text, className, staggerDelay = 0.04, baseDelay = 0.4, charClassName = '' }) {
+const SplitText = memo(function SplitText({ text, className, staggerDelay = 0.04, baseDelay = 0.4, charClassName = '' }) {
+  const chars = useMemo(() => text.split(''), [text])
   return (
     <span className={className} aria-label={text}>
-      {text.split('').map((char, i) => (
+      {chars.map((char, i) => (
         <motion.span
           key={i}
           initial={{ y: '110%', opacity: 0 }}
@@ -26,7 +26,7 @@ function SplitText({ text, className, staggerDelay = 0.04, baseDelay = 0.4, char
       ))}
     </span>
   )
-}
+})
 
 export default function Hero() {
   const containerRef = useRef(null)
@@ -35,7 +35,6 @@ export default function Hero() {
     offset: ['start start', 'end start'],
   })
 
-  // Parallax transforms
   const nameY = useTransform(scrollYProgress, [0, 1], ['0%', '-20%'])
   const subtitleY = useTransform(scrollYProgress, [0, 1], ['0%', '-10%'])
   const indicatorY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
@@ -48,7 +47,6 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-screen flex flex-col justify-center overflow-hidden px-6 md:px-10"
     >
-      {/* ── Background grid lines (decorative) ── */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
@@ -58,7 +56,6 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Vertical accent line ── */}
       <motion.div
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
@@ -67,10 +64,8 @@ export default function Hero() {
         className="absolute left-6 md:left-10 top-24 bottom-24 w-px bg-border"
       />
 
-      {/* ── Main content ── */}
       <div className="max-w-7xl w-full mx-auto pt-24 pb-16">
 
-        {/* Role label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,10 +76,8 @@ export default function Hero() {
           <span className="section-label">{profile.role}</span>
         </motion.div>
 
-        {/* ── Display name (parallax) ── */}
         <motion.div style={{ y: nameY }} className="overflow-hidden pl-6 md:pl-0">
           <h1 className="font-display font-800 leading-[0.9] tracking-tight text-ink">
-            {/* First name — very large */}
             <div className="overflow-hidden">
               <div className="text-[clamp(4rem,14vw,12rem)] leading-[0.88]">
                 <div className="overflow-hidden">
@@ -93,11 +86,8 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Last names — slightly smaller, offset right */}
             <div className="overflow-hidden md:pl-4">
-              <div
-                className="text-[clamp(1.5rem,4.5vw,4.2rem)] font-500 text-ink-secondary mt-1"
-              >
+              <div className="text-[clamp(1.5rem,4.5vw,4.2rem)] font-500 text-ink-secondary mt-1">
                 <SplitText
                   text="LOVERADO RINUMPOKO"
                   staggerDelay={0.025}
@@ -108,7 +98,6 @@ export default function Hero() {
           </h1>
         </motion.div>
 
-        {/* ── Divider + tagline ── */}
         <motion.div
           style={{ y: subtitleY }}
           className="mt-10 md:mt-12 pl-6 md:pl-0 flex flex-col md:flex-row md:items-end gap-6 md:gap-16"
@@ -131,7 +120,6 @@ export default function Hero() {
               "{profile.tagline}"
             </motion.p>
 
-            {/* Location + other roles */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -156,7 +144,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* ── CTA ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -187,7 +174,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* ── Scroll indicator ── */}
       <motion.div
         style={{ y: indicatorY }}
         initial={{ opacity: 0 }}

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Clock } from 'lucide-react'
 import { blogPosts } from '../data/index.js'
@@ -12,7 +12,7 @@ const fadeUp = {
   }),
 }
 
-function BlogCard({ post, index, inView }) {
+const BlogCard = memo(function BlogCard({ post, index, inView }) {
   return (
     <motion.a
       href={post.link}
@@ -23,13 +23,11 @@ function BlogCard({ post, index, inView }) {
       className="group block border border-border hover:border-ink p-6 transition-all duration-300
                  hover:shadow-sm relative overflow-hidden"
     >
-      {/* Hover fill effect */}
       <div
         className="absolute inset-0 bg-ink translate-y-full group-hover:translate-y-0
                    transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
       />
 
-      {/* Content */}
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-4">
@@ -82,7 +80,7 @@ function BlogCard({ post, index, inView }) {
       </div>
     </motion.a>
   )
-}
+})
 
 export default function Blog() {
   const ref = useRef(null)
@@ -92,7 +90,6 @@ export default function Blog() {
     <section id="blog" ref={ref} className="py-28 md:py-36 px-6 md:px-10 border-t border-border">
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
             <div className="flex items-center gap-4 mb-4">
@@ -140,14 +137,12 @@ export default function Blog() {
           </motion.a>
         </div>
 
-        {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {blogPosts.map((post, i) => (
             <BlogCard key={post.id} post={post} index={i} inView={inView} />
           ))}
         </div>
 
-        {/* Disclaimer */}
         <motion.p
           variants={fadeUp}
           initial="hidden"

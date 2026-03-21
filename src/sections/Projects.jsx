@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Github } from 'lucide-react'
 import { projects } from '../data/index.js'
@@ -13,7 +13,7 @@ const fadeUp = {
   }),
 }
 
-function ProjectRow({ project, index, inView }) {
+const ProjectRow = memo(function ProjectRow({ project, index, inView }) {
   const {
     ref: liveRef,
     handleMouseMove: liveMove,
@@ -34,7 +34,6 @@ function ProjectRow({ project, index, inView }) {
       className="group grid grid-cols-1 lg:grid-cols-[120px_1fr_auto] gap-6 lg:gap-12
                  py-10 border-b border-border items-start"
     >
-      {/* Project number + year */}
       <div className="flex lg:flex-col gap-4 lg:gap-2">
         <span className="font-display text-[clamp(2rem,4vw,3.5rem)] font-800 leading-none text-border
                          group-hover:text-ink transition-colors duration-500">
@@ -45,7 +44,6 @@ function ProjectRow({ project, index, inView }) {
         </span>
       </div>
 
-      {/* Content */}
       <div>
         <p className="section-label mb-2">{project.tagline}</p>
         <h3
@@ -58,7 +56,6 @@ function ProjectRow({ project, index, inView }) {
           {project.description}
         </p>
 
-        {/* Tech tags */}
         <div className="flex flex-wrap gap-2">
           {project.tech.map((t) => (
             <span key={t} className="tag text-[11px]">
@@ -68,7 +65,6 @@ function ProjectRow({ project, index, inView }) {
         </div>
       </div>
 
-      {/* Links */}
       <div className="flex lg:flex-col items-start gap-3">
         <div ref={liveRef} onMouseMove={liveMove} onMouseLeave={liveLeave}>
           <a
@@ -100,7 +96,7 @@ function ProjectRow({ project, index, inView }) {
       </div>
     </motion.div>
   )
-}
+})
 
 export default function Projects() {
   const ref = useRef(null)
@@ -114,7 +110,6 @@ export default function Projects() {
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-4">
           <div>
             <div className="flex items-center gap-4 mb-4">
@@ -162,7 +157,6 @@ export default function Projects() {
           </motion.a>
         </div>
 
-        {/* Projects */}
         <div>
           {projects.map((project, i) => (
             <ProjectRow key={project.id} project={project} index={i} inView={inView} />

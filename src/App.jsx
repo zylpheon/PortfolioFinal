@@ -1,18 +1,19 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollTracker from './components/ScrollTracker.jsx'
 import Hero from './sections/Hero.jsx'
-import About from './sections/About.jsx'
-import Skills from './sections/Skills.jsx'
-import Certifications from './sections/Certifications.jsx'
-import Projects from './sections/Projects.jsx'
-import Blog from './sections/Blog.jsx'
-import Contact from './sections/Contact.jsx'
 
 import { useElasticScroll } from './hooks/useElasticScroll.js'
+
+const About = lazy(() => import('./sections/About.jsx'))
+const Skills = lazy(() => import('./sections/Skills.jsx'))
+const Certifications = lazy(() => import('./sections/Certifications.jsx'))
+const Projects = lazy(() => import('./sections/Projects.jsx'))
+const Blog = lazy(() => import('./sections/Blog.jsx'))
+const Contact = lazy(() => import('./sections/Contact.jsx'))
 
 export default function App() {
   const pageRef = useRef(null)
@@ -28,7 +29,6 @@ export default function App() {
       <ScrollTracker />
       <Navbar />
 
-      {/* ── End-of-page reveal text ── */}
       <div className="fixed bottom-0 left-0 right-0 z-[1] flex items-center justify-center pb-10 pointer-events-none select-none">
         <p
           className="font-display text-[10px] font-600 tracking-widest uppercase"
@@ -46,7 +46,6 @@ export default function App() {
         className="fixed inset-0 z-[9998] bg-ink pointer-events-none"
       />
 
-      {/* Tambahkan z-10 agar page wrapper menutupi teks di belakangnya */}
       <motion.div
         ref={pageRef}
         initial={{ opacity: 0 }}
@@ -56,12 +55,14 @@ export default function App() {
       >
         <main>
           <Hero />
-          <About />
-          <Skills />
-          <Certifications />
-          <Projects />
-          <Blog />
-          <Contact />
+          <Suspense fallback={null}>
+            <About />
+            <Skills />
+            <Certifications />
+            <Projects />
+            <Blog />
+            <Contact />
+          </Suspense>
         </main>
         <Footer />
       </motion.div>

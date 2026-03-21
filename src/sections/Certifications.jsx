@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Award } from 'lucide-react'
 import { certifications } from '../data/index.js'
@@ -12,7 +12,7 @@ const fadeUp = {
   }),
 }
 
-function CertCard({ cert, index, inView, isLast }) {
+const CertCard = memo(function CertCard({ cert, index, inView, isLast }) {
   const [imgError, setImgError] = useState(false)
 
   return (
@@ -24,13 +24,13 @@ function CertCard({ cert, index, inView, isLast }) {
       className={`relative overflow-hidden border border-border aspect-[1.414/1]
         ${isLast ? 'col-span-2 sm:col-span-1 justify-self-center sm:justify-self-auto w-[calc(50%-6px)] sm:w-auto' : ''}`}
     >
-      {/* ... isi CertCard tidak berubah ... */}
       {!imgError ? (
         <img
           src={`/certificates/cert-${cert.id}.webp`}
           alt={cert.placeholder ? `Certificate ${cert.id}` : cert.name}
           className="w-full h-full object-cover"
           onError={() => setImgError(true)}
+          loading="lazy"
           draggable={false}
         />
       ) : (
@@ -43,7 +43,7 @@ function CertCard({ cert, index, inView, isLast }) {
       )}
     </motion.div>
   )
-}
+})
 
 export default function Certifications() {
   const ref = useRef(null)
@@ -57,7 +57,6 @@ export default function Certifications() {
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
             <div className="flex items-center gap-4 mb-4">
@@ -102,7 +101,6 @@ export default function Certifications() {
           </motion.p>
         </div>
 
-        {/* Grid — pure image tiles */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {certifications.map((cert, i) => (
             <CertCard

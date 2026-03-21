@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { skills } from '../data/index.js'
 
@@ -11,7 +11,7 @@ const fadeUp = {
   }),
 }
 
-function SkillCategory({ category, items, inView, index }) {
+const SkillCategory = memo(function SkillCategory({ category, items, inView, index }) {
   return (
     <motion.div
       variants={fadeUp}
@@ -21,7 +21,6 @@ function SkillCategory({ category, items, inView, index }) {
       className="py-5 border-b border-border last:border-b-0 group"
     >
       <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-8">
-        {/* Category name */}
         <div className="sm:w-44 flex-shrink-0">
           <span className="font-display text-xs font-600 tracking-widest uppercase text-ink-muted
                            group-hover:text-ink transition-colors duration-300">
@@ -29,7 +28,6 @@ function SkillCategory({ category, items, inView, index }) {
           </span>
         </div>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2">
           {items.map((skill, i) => (
             <motion.span
@@ -50,7 +48,7 @@ function SkillCategory({ category, items, inView, index }) {
       </div>
     </motion.div>
   )
-}
+})
 
 export default function Skills() {
   const ref = useRef(null)
@@ -60,7 +58,6 @@ export default function Skills() {
     <section id="skills" ref={ref} className="py-28 md:py-36 px-6 md:px-10 border-t border-border bg-surface">
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
             <div className="flex items-center gap-4 mb-4">
@@ -105,7 +102,6 @@ export default function Skills() {
           </motion.p>
         </div>
 
-        {/* Skills list */}
         <div className="border-t border-border">
           {skills.map((skill, i) => (
             <SkillCategory

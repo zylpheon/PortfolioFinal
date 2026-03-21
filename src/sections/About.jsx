@@ -1,9 +1,9 @@
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { profile } from '../data/index.js'
 import { useCounterAnimation } from '../hooks/useCounterAnimation.js'
 
-function StatCard({ label, value, suffix, inView, delay }) {
+const StatCard = memo(function StatCard({ label, value, suffix, inView, delay }) {
   const count = useCounterAnimation(value, 1800, inView)
   return (
     <motion.div
@@ -19,9 +19,8 @@ function StatCard({ label, value, suffix, inView, delay }) {
       <p className="mt-2 font-body text-sm font-500 text-ink-muted tracking-wide">{label}</p>
     </motion.div>
   )
-}
+})
 
-// Fade-in animation variant
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   show: (i = 0) => ({
@@ -38,7 +37,6 @@ export default function About() {
   return (
     <section id="about" ref={ref} className="py-28 md:py-36 px-6 md:px-10 border-t border-border">
       <div className="max-w-7xl mx-auto">
-        {/* Section header */}
         <div className="flex items-center gap-4 mb-16">
           <motion.span
             variants={fadeUp}
@@ -61,10 +59,7 @@ export default function About() {
           </motion.span>
         </div>
 
-        {/* ── Two-column layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-
-          {/* Left — Bio */}
           <div>
             <motion.h2
               variants={fadeUp}
@@ -116,7 +111,6 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* Right — Stats grid */}
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 content-start">
             {profile.stats.map((stat, i) => (
               <StatCard

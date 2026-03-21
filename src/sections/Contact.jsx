@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Github, Linkedin, Instagram, MessageCircle, Mail } from 'lucide-react'
 import { profile } from '../data/index.js'
@@ -20,7 +20,7 @@ const socialIcons = {
   whatsapp: MessageCircle,
 }
 
-function SocialLink({ platform, href }) {
+const SocialLink = memo(function SocialLink({ platform, href }) {
   const Icon = socialIcons[platform]
   const { ref, handleMouseMove, handleMouseLeave } = useMagneticEffect(0.45)
 
@@ -44,7 +44,7 @@ function SocialLink({ platform, href }) {
       </a>
     </div>
   )
-}
+})
 
 export default function Contact() {
   const ref = useRef(null)
@@ -60,7 +60,6 @@ export default function Contact() {
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header */}
         <div className="flex items-center gap-4 mb-16">
           <motion.span
             variants={fadeUp}
@@ -83,7 +82,6 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-end">
 
-          {/* Left — headline */}
           <div>
             <motion.h2
               variants={fadeUp}
@@ -110,7 +108,6 @@ export default function Contact() {
             </motion.p>
           </div>
 
-          {/* Right — email + socials */}
           <div>
             <motion.p
               variants={fadeUp}
@@ -142,7 +139,6 @@ export default function Contact() {
               </a>
             </motion.div>
 
-            {/* Divider */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
