@@ -125,7 +125,7 @@ export const projects = [
   },
 ]
 
-// ─── Blog / Writing Posts (dummy) ─────────────────────────
+// ─── Blog / Writing Posts ──────────────────────────────
 export const blogPosts = [
   {
     id: '01',
@@ -135,7 +135,7 @@ export const blogPosts = [
     date: 'Feb 2026',
     readTime: '7 min read',
     tags: ['React', 'Node.js', 'Architecture'],
-    link: '#',
+    link: 'https://blog.valen.icu/blog/building-scalable-react-apps',  // ← update
   },
   {
     id: '02',
@@ -145,7 +145,7 @@ export const blogPosts = [
     date: 'Jan 2026',
     readTime: '10 min read',
     tags: ['IoT', 'MQTT', 'ESP32'],
-    link: '#',
+    link: 'https://blog.valen.icu/blog/iot-esp32-mqtt-dashboard',  // ← update
   },
   {
     id: '03',
@@ -155,6 +155,6 @@ export const blogPosts = [
     date: 'Dec 2025',
     readTime: '5 min read',
     tags: ['UI/UX', 'Design', 'Minimalism'],
-    link: '#',
+    link: 'https://blog.valen.icu/blog/art-of-minimalist-ui',  // ← update
   },
 ]

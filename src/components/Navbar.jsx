@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { profile } from '../data/index.js'
+import ThemeToggle from './ThemeToggle.jsx'   // ← tambah ini
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -26,11 +27,10 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
             ? 'bg-bg/90 backdrop-blur-md border-b border-border'
             : 'bg-transparent'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           {/* Monogram */}
@@ -41,45 +41,46 @@ export default function Navbar() {
             {profile.initials}
           </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="font-body text-sm font-500 text-ink-secondary tracking-wide
-                           relative after:absolute after:bottom-0 after:left-0 after:w-0
-                           after:h-px after:bg-ink after:transition-all after:duration-300
-                           hover:text-ink hover:after:w-full transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="font-body text-sm font-500 text-ink-secondary tracking-wide relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-ink after:transition-all after:duration-300 hover:text-ink hover:after:w-full transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          ))}
+          <ThemeToggle />
+        </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden flex flex-col gap-[5px] p-2"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25 }}
-              className="block w-5 h-px bg-ink"
-            />
-            <motion.span
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.15 }}
-              className="block w-5 h-px bg-ink"
-            />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25 }}
-              className="block w-5 h-px bg-ink"
-            />
-          </button>
-        </div>
+      {/* Mobile: theme toggle + hamburger */}
+      <div className="md:hidden flex items-center gap-3">
+        <ThemeToggle />  {/* ← tambah di sini */}
+        <button
+          className="flex flex-col gap-[5px] p-2"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <motion.span
+            animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className="block w-5 h-px bg-ink"
+          />
+          <motion.span
+            animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+            transition={{ duration: 0.15 }}
+            className="block w-5 h-px bg-ink"
+          />
+          <motion.span
+            animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className="block w-5 h-px bg-ink"
+          />
+        </button>
+      </div>
+      </div>
       </motion.header>
 
       {/* Mobile Menu */}

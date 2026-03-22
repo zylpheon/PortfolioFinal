@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -8,12 +9,12 @@ export default {
         body: ['Barlow', 'sans-serif'],
       },
       colors: {
-        bg: '#F2F0EB',
-        surface: '#E8E6E0',
-        border: 'rgba(17,17,17,0.12)',
-        ink: '#111111',
-        'ink-secondary': '#4A4845',
-        'ink-muted': '#8A8783',
+        bg: 'var(--bg)',
+        surface: 'var(--surface)',
+        border: 'var(--border-color)',
+        ink: 'var(--ink)',
+        'ink-secondary': 'var(--ink-secondary)',
+        'ink-muted': 'var(--ink-muted)',
       },
       letterSpacing: {
         widest2: '0.25em',

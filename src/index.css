@@ -6,10 +6,21 @@
 :root {
   --bg: #F2F0EB;
   --surface: #E8E6E0;
-  --border: rgba(17, 17, 17, 0.12);
+  --border-color: rgba(17, 17, 17, 0.12);
+  /* ganti --border → --border-color */
   --ink: #111111;
   --ink-secondary: #4A4845;
   --ink-muted: #8A8783;
+}
+
+/* ─── Dark Theme ──────────────────────────────────────── */
+.dark {
+  --bg: #111111;
+  --surface: #1A1A18;
+  --border-color: rgba(242, 240, 235, 0.10);
+  --ink: #F2F0EB;
+  --ink-secondary: #B5B2AD;
+  --ink-muted: #6A6762;
 }
 
 html {
