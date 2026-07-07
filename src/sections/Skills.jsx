@@ -1,6 +1,6 @@
 import { memo, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { skills } from '../data/index.js'
+import { skills, languages } from '../data/index.js'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -47,6 +47,34 @@ const SkillCategory = memo(function SkillCategory({ category, items, inView, ind
         </div>
       </div>
     </motion.div>
+  )
+})
+
+const LanguageBar = memo(function LanguageBar({ name, level, percent, index, inView }) {
+  return (
+    <div className="py-4 border-b border-border last:border-b-0">
+      <div className="flex items-center justify-between mb-2.5">
+        <span className="font-body text-sm font-600 text-ink">{name}</span>
+        <span className="font-body text-xs font-500 text-ink-muted uppercase tracking-wide">
+          {level}
+        </span>
+      </div>
+      <div
+        className="h-1.5 w-full bg-border/60 rounded-full overflow-hidden"
+        role="progressbar"
+        aria-label={`${name} proficiency level: ${level}`}
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <motion.div
+          className="h-full bg-ink rounded-full"
+          initial={{ width: 0 }}
+          animate={inView ? { width: `${percent}%` } : { width: 0 }}
+          transition={{ delay: 0.2 + index * 0.12, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        />
+      </div>
+    </div>
   )
 })
 
@@ -111,6 +139,24 @@ export default function Skills() {
               inView={inView}
             />
           ))}
+        </div>
+        <div className="mt-20">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={inView ? 'show' : 'hidden'}
+            custom={skills.length * 0.5 + 1}
+            className="flex items-center gap-4 mb-8"
+          >
+            <span className="w-8 h-px bg-border" />
+            <span className="section-label">Languages</span>
+          </motion.div>
+
+          <div className="max-w-2xl border-t border-border">
+            {languages.map((lang, i) => (
+              <LanguageBar key={lang.name} {...lang} index={i} inView={inView} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -127,7 +127,9 @@ export default function Blog() {
             initial="hidden"
             animate={inView ? 'show' : 'hidden'}
             custom={2}
-            href="#"
+            href="https://blog.valen.icu"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 font-body text-sm font-500 text-ink-secondary
                        underline underline-offset-4 decoration-border hover:text-ink
                        hover:decoration-ink transition-all duration-200 self-start md:self-auto"
@@ -142,16 +144,6 @@ export default function Blog() {
             <BlogCard key={post.id} post={post} index={i} inView={inView} />
           ))}
         </div>
-
-        <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? 'show' : 'hidden'}
-          custom={4}
-          className="mt-8 text-center font-body text-xs text-ink-muted/60"
-        >
-          * Articles above are placeholder content — will be replaced with real posts.
-        </motion.p>
       </div>
     </section>
   )

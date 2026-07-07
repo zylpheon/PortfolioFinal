@@ -68,6 +68,15 @@ export const skills = [
   },
 ]
 
+// ─── Languages ────────────────────────────────────────────
+// Ordered from most to least proficient — percent drives the bar width
+export const languages = [
+  { name: 'Indonesian', level: 'Native', percent: 100 },
+  { name: 'English', level: 'Expert', percent: 90 },
+  { name: 'Javanese', level: 'Intermediate', percent: 60 },
+  { name: 'Japanese', level: 'Beginner', percent: 30 },
+]
+
 // ─── Certifications (15 slots) ────────────────────────────
 // Set placeholder: false and fill in the fields when you have real certs
 export const certifications = [
@@ -129,32 +138,32 @@ export const projects = [
 export const blogPosts = [
   {
     id: '01',
-    title: 'Building Scalable Web Applications with React and Node.js',
+    title: 'MTCNA Module 9: Tools & Monitoring',
     excerpt:
-      'Exploring architectural patterns and best practices for building applications that gracefully grow with your users and team.',
-    date: 'Feb 2026',
-    readTime: '7 min read',
-    tags: ['React', 'Node.js', 'Architecture'],
-    link: 'https://blog.valen.icu',
+      "Complete your MTCNA journey with MikroTik's diagnostic toolkit — master Ping, Traceroute, Torch, Traffic Monitor, Netwatch, Graphing, SNMP, and Logging to troubleshoot and maintain your network like a pro.",
+    date: 'Jun 27, 2026',
+    readTime: '14 min read',
+    tags: ['Network', 'Tutorial'],
+    link: 'https://blog.valen.icu/blog/mtcna-module-9-tools',
   },
   {
     id: '02',
-    title: 'IoT Integration: Connecting Physical Devices to the Web',
+    title: 'MTCNA Module 8: Tunnels',
     excerpt:
-      'A deep dive into MQTT protocols, ESP32 firmware, and crafting real-time dashboards that turn sensor data into actionable insights.',
-    date: 'Jan 2026',
-    readTime: '10 min read',
-    tags: ['IoT', 'MQTT', 'ESP32'],
-    link: 'https://blog.valen.icu',
+      'Build secure virtual links over untrusted networks — learn the PPP framework, set up PPPoE for ISP-style deployments, manage IP Pools, and configure PPTP and SSTP VPN servers on MikroTik RouterOS.',
+    date: 'Jun 24, 2026',
+    readTime: '13 min read',
+    tags: ['Network', 'Tutorial'],
+    link: 'https://blog.valen.icu/blog/mtcna-module-8-tunnels',
   },
   {
     id: '03',
-    title: 'The Art of Minimalist UI Design',
+    title: 'MTCNA Module 7: QoS (Quality of Service)',
     excerpt:
-      'How purposeful restraint in design creates interfaces that are both visually compelling and deeply functional for the people who use them.',
-    date: 'Dec 2025',
-    readTime: '5 min read',
-    tags: ['UI/UX', 'Design', 'Minimalism'],
-    link: 'https://blog.valen.icu',
+      'Take control of your bandwidth — learn how to limit, guarantee, and fairly share network throughput on MikroTik using Simple Queues, MIR/CIR, Bursting, and the dynamic PCQ (Per Connection Queue) system.',
+    date: 'Jun 21, 2026',
+    readTime: '12 min read',
+    tags: ['Network', 'Tutorial'],
+    link: 'https://blog.valen.icu/blog/mtcna-module-7-qos',
   },
 ]
