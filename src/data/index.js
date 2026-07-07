@@ -26,9 +26,9 @@ export const profile = {
 
   stats: [
     { label: 'Years Experience', value: 3, suffix: '+' },
-    { label: 'Projects Delivered', value: 20, suffix: '+' },
+    { label: 'Completed Projects', value: 20, suffix: '+' },
     { label: 'Technologies', value: 15, suffix: '+' },
-    { label: 'Certifications', value: 15, suffix: '' },
+    { label: 'Certifications', value: 10, suffix: '+' },
   ],
 }
 
