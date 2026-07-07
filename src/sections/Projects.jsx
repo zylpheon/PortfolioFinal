@@ -141,20 +141,6 @@ export default function Projects() {
               Selected work
             </motion.h2>
           </div>
-
-          <motion.a
-            variants={fadeUp}
-            initial="hidden"
-            animate={inView ? 'show' : 'hidden'}
-            custom={2}
-            href="#"
-            className="flex items-center gap-2 font-body text-sm font-500 text-ink-secondary
-                       underline underline-offset-4 decoration-border hover:text-ink
-                       hover:decoration-ink transition-all duration-200 self-start md:self-auto"
-          >
-            All projects
-            <ArrowUpRight size={14} />
-          </motion.a>
         </div>
 
         <div>
